@@ -6,7 +6,7 @@ _pronounced: builder_
 
 ## Abstract
 
-Committing built resources into the VCS like transpiled and minified JavaScript is a huge pain when it comes to merging feature requests. Let's face it: built resources **SHOULD NOT** be in the VCS anyway. `bldr` helps you with that. It performs the built process in an isolated mini-container and writes it into your project directory.
+Committing built resources into the VCS like transpiled and minified JavaScript is a huge pain when it comes to merging feature requests. Let's face it: built resources **SHOULD NOT** be in the VCS anyway. `bldr` helps you with that. It performs the build process in an isolated mini-container and writes it into your project directory.
 
 ## Workflow
 
