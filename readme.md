@@ -19,12 +19,6 @@ git pull --rebase origin master
 bldr
 ```
 
-## Installation
-
-```sh
-npm i -g @sitegeist/bldr
-```
-
 ## Usage
 
 Configure the respective build command in your projects `package.json`, e.g.
