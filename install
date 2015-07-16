@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+#
+# bldr installation routine
+#
+# Author: André König <koenig@sitegeist.de>
+#
+
+#
+# 0. Check if the dependencies are met (`debotstrap` and `schroot`)
+#
+# 1. Step check if `~/.bldr/chroot` exists.
+#   - If it exists, ask the user if it should be overwritten (`rm -rf ~/.bldr`)
+#
+# 2. When not available OR should overwritten:
+#    -> Download the `chroot` image and extract it in `~/.bldr`
+#
+# 3. Download the `bldr` and copy it into `~/.bldr/bldr`
+#
+# 4. Print configuration instructions
+#    -> `schroot` configuration
+#    -> `bldr` sourcing
+#

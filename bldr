@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+#
+# bldr
+#
+# Performs the build process of an application
+# in an ad-hoc container-like environment
+#
+#
+# Author: André König <koenig@sitegeist.de>
+#
+
+PKG=package.json
+MANIFEST=$(pwd)/$PKG
+
+#
+# 0. Check if there is a `package.json` in the current directory
+# 1. Check if the `package.json` provides a `build` attribute.
+# 2. Execute the build command in the chroot: ``
+#
+
+if [ ! -f $MANIFEST ]; then
+    echo "No '$PKG' found in this project. Bye bye."
+fi
+
+function getBuildCommand () {
+    echo $(cat package.json | grep -Po '"build":.*?[^\\]",' | sed -e 's/\"build"\://g' | sed -e 's/\"//g' | sed -e 's/\,//g')
+}
+
+CMD=$(getBuildCommand)
+
+if [ -z "$CMD" ]; then
+    echo "No build command defined in the '$PKG'. Bye bye."
+fi
+
+schroot -c bldr -- $CMD
