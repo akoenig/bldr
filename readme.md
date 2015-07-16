@@ -66,4 +66,4 @@ users=<username>
 
 ## Author
 
-André König - koenig@sitegeist.de
+Copyright 2015, [André König](http://andrekoenig.info) (andre.koenig@posteo.de)

@@ -3,11 +3,9 @@
 #
 # bldr installation routine
 #
-# Author: André König <koenig@sitegeist.de>
+# Author: André König <andre.koenig@posteo.de>
 #
 
-#
-# 0. Check if the dependencies are met (`debotstrap` and `schroot`)
 #
 # 1. Step check if `~/.bldr/chroot` exists.
 #   - If it exists, ask the user if it should be overwritten (`rm -rf ~/.bldr`)
@@ -21,3 +19,27 @@
 #    -> `schroot` configuration
 #    -> `bldr` sourcing
 #
+
+BLDR_HOME=$HOME/.bldr
+CHROOT_DIR=$BLDR_HOME/chroot
+
+echo "Hello.
+This is the installation process of 'bldr'.
+Please make sure that you have the following dependencies installed:        
+
+    * debootstrap
+    * schroot
+
+I'm not running as super-user (which is good), therefore can't check if those are available. Please note that you have to install them before you can use 'bldr'.
+
+Cheers."
+
+if [ ! -d $BLDR_HOME ]; then
+    mkdir -p $BLDR_HOME
+fi
+
+if [ -d "$CHROOT_DIR" ]; then
+    CHROOT_NOT_AVAILABLE=true
+fi
+
+echo $CHROOT_NOT_AVAILABLE
