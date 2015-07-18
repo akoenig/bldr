@@ -7,8 +7,15 @@
 #
 #
 
+#
+# Configuration
+#
+# You can override these by exporting them as environment
+# variables before executing `make`
+#
+#
 CHROOT_SOURCE ?= http://localhost:3000/chroot.tar.gz
-CHROOT_DESTINATION ?= /var/bldr
+CHROOT_DESTINATION ?= /var/chroots/bldr
 ALLOWED_GROUPS ?= www-data
 
 define SCHROOT_CONFIGURATION
@@ -20,22 +27,34 @@ groups=$(ALLOWED_GROUPS)
 endef
 export SCHROOT_CONFIGURATION
 
-install: apt-update debootstrap schroot download-chroot configure-schroot
+install: dependencies download-chroot configure-schroot install-bldr
 
-apt-update:
-	apt-get update
-
-debootstrap:
+dependencies:
+	apt-get update -qq
 	apt-get install debootstrap -qq
-
-schroot:
 	apt-get install schroot -qq
 
+uninstall-dependencies:
+	apt-get purge debootstrap -qq
+	apt-get purge schroot -qq
+
 download-chroot:
-	wget -qO- ${CHROOT_IMAGE} | tar xvz -C /var/bldr
+	mkdir -p ${CHROOT_DESTINATION}
+	wget -qO- ${CHROOT_SOURCE} | tar xvz -C ${CHROOT_DESTINATION}
+
+remove-chroot:
+	rm -rf ${CHROOT_DESTINATION}
 
 configure-schroot:
 	echo "$$SCHROOT_CONFIGURATION" > /etc/schroot/chroot.d/bldr
 
+remove-schroot-configuration:
+	rm /etc/schroot/chroot.d/bldr
+
 install-bldr:
 	cp ./bldr /usr/local/bin
+
+uninstall-bldr:
+	rm /usr/local/bin
+
+uninstall: uninstall-dependencies remove-chroot remove-schroot-configuration
