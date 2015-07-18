@@ -8,6 +8,15 @@ _pronounced: builder_
 
 Committing built resources into the VCS like transpiled and minified JavaScript is a huge pain when it comes to merging feature requests. Let's face it: built resources **SHOULD NOT** be in the VCS anyway. `bldr` helps you with that. It performs the build process in an isolated mini-container and writes it into your project directory.
 
+## Installation
+
+```sh
+git clone https://github.com/akoenig/bldr
+
+cd bldr
+sudo make
+```
+
 ## Workflow
 
 ```sh

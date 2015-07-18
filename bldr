@@ -11,7 +11,8 @@
 #
 
 PKG=package.json
-MANIFEST=$(pwd)/$PKG
+CWD=$(readlink -f .)
+MANIFEST=$CWD/$PKG
 
 if [ ! -f $MANIFEST ]; then
     echo "No '$PKG' found in this project. Bye bye."
@@ -27,4 +28,4 @@ if [ -z "$CMD" ]; then
     echo "No build command defined in the '$PKG'. Bye bye."
 fi
 
-schroot -c bldr -- $CMD
+schroot -c bldr -u $USER -- $CMD
