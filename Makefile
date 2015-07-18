@@ -29,32 +29,45 @@ export SCHROOT_CONFIGURATION
 
 install: dependencies download-chroot configure-schroot install-bldr
 
+uninstall: remove-chroot remove-schroot-configuration uninstall-dependencies uninstall-bldr
+
 dependencies:
-	apt-get update -qq
-	apt-get install debootstrap -qq
-	apt-get install schroot -qq
+	@echo "bldr: (1/5) Updating apt-get cache."
+	@apt-get update -qq
+
+	@echo "bldr: (2/5) Installing debootstrap."
+	@apt-get install debootstrap -qq
+	
+	@echo "bldr: (2/5) Installing schroot."
+	@apt-get install schroot -qq
 
 uninstall-dependencies:
+	@echo "bldr: (3/4) Uninstalling dependencies."
+
 	apt-get purge debootstrap -qq
 	apt-get purge schroot -qq
 
 download-chroot:
+	@echo "bldr: (3/5) Downloading the 'bldr' chroot."
 	mkdir -p ${CHROOT_DESTINATION}
-	wget -qO- ${CHROOT_SOURCE} | tar xvz -C ${CHROOT_DESTINATION}
+	wget -qO- ${CHROOT_SOURCE} | tar xz -C ${CHROOT_DESTINATION}
 
 remove-chroot:
-	rm -rf ${CHROOT_DESTINATION}
+	echo "bldr: (1/4) Removing 'bldr' chroot."
+	@rm -rf ${CHROOT_DESTINATION}
 
 configure-schroot:
+	@echo "bldr: (4/5) Configuring schroot."
 	echo "$$SCHROOT_CONFIGURATION" > /etc/schroot/chroot.d/bldr
 
 remove-schroot-configuration:
+	echo "bldr: (2/4) Removing 'schroot' configuration."
 	rm /etc/schroot/chroot.d/bldr
 
 install-bldr:
-	cp ./bldr /usr/local/bin
+	@echo "bldr: (5/5) Installing 'bldr' CLI."
+	@cp ./bldr /usr/local/bin
 
 uninstall-bldr:
-	rm /usr/local/bin
-
-uninstall: uninstall-dependencies remove-chroot remove-schroot-configuration
+	@echo "bldr: (4/4) Uninstalling 'bldr'."
+	rm /usr/local/bin/bldr
