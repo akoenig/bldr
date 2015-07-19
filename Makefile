@@ -58,7 +58,7 @@ install_base-box:
 	#
 	# (2/5)
 	#
-	# "Installing the base box to '${BOX_DESTINATION}'. This step can take a while."
+	# "Installing the base box to '$(shell echo ${BOX_DESTINATION})'. This step can take a while."
 	#
 	@mkdir -p "${BOX_DESTINATION}"
 	@debootstrap --variant="${BASE_BOX_VARIANT}" --arch="${BASE_BOX_ARCH}" "${BASE_BOX_NAME}" "${BOX_DESTINATION}" "${BASE_BOX}"
@@ -77,8 +77,8 @@ install_box-provisioning:
 	#
 	# (4/5)
 	#
-	# Download the box provisioning file from "${BOX_SOURCE}"
-	# and Provisioning '${BOX_NAME}' box.
+	# Download the box provisioning file from "$(shell echo ${BOX_SOURCE})"
+	# and Provisioning '$(shell echo ${BOX_NAME})' box.
 	#
 	@wget -qO- "${BOX_SOURCE}" | schroot -c bldr -- 
 
