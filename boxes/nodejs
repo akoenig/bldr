@@ -8,7 +8,7 @@
 
 echo "Installing Node.js 0.12."
 
-apt-get install -y wget
+apt-get install -y wget libssl-dev python
 
 cd /tmp
 wget https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz
