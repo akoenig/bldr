@@ -6,7 +6,7 @@ _pronounced: builder_
 
 ## Abstract
 
-Committing built resources into the VCS like transpiled and minified JavaScript is a huge pain when it comes to merging feature requests. Let's face it: built resources **SHOULD NOT** be in the VCS anyway. `bldr` helps you with that. It performs the build process in an isolated mini-container and writes it into your project directory.
+Committing built resources into the VCS, like transpiled and minified JavaScript, is a huge pain when it comes to merging feature requests. Let's face it: built resources **SHOULD NOT** be in the VCS anyway. `bldr` helps you with that. It performs the build process in an isolated mini-container and writes it into your project directory.
 
 ## Installation
 
@@ -14,10 +14,26 @@ Committing built resources into the VCS like transpiled and minified JavaScript 
 git clone https://github.com/akoenig/bldr
 
 cd bldr
-sudo make
+sudo make install
 ```
 
-## Workflow
+`bldr` ships with a default configuration which can be overwritten by defining them as environment variables when executing the respective `make` task:
+
+```sh
+sudo make install BOX_SOURCE=http://host.tld/path/to/a/provisioning/script
+```
+
+### Available configurations
+
+  * `BASE_BOX`: URL of the base box (default: `http://de.archive.ubuntu.com/ubuntu`)
+  * `BASE_BOX_NAME`: Product name of the base box (default: `vivid`)
+  * `BASE_BOX_ARCH`: The machine's architecture (default: `amd64`)
+  * `BASE_BOX_VARIANT`: The base box variant (default: `buildd`)
+  * `BOX_SOURCE`: The box's provisioning script (default: `https://raw.githubusercontent.com/akoenig/bldr/master/boxes/nodejs`).
+
+## Usage
+
+When `bldr` has been installed, the build workflow will look like:
 
 ```sh
 cd your-project
@@ -28,9 +44,9 @@ git pull --rebase origin master
 bldr
 ```
 
-## Usage
+## Project configuration
 
-Configure the respective build command in your projects `package.json`, e.g.
+`bldr` scans your project's `package.json` for a `build` attribute which defines the steps that should be executed for building the project. An example:
 
 ```json
 {
@@ -42,29 +58,6 @@ Configure the respective build command in your projects `package.json`, e.g.
   },
   "build": "npm run compile && npm run minify"
 }
-```
-
-Consider the `build` attribute in the `package.json`. This will tell `bldr` which command should be executed.
-
-## TODO
-
-  * Build the chroot after installing `bldr` as `prepublish` hook.
-
-## Specification
-
-Installation directory: /usr/local/bin/bldr
-Chroot location: ~/.bldr
-
-Dependencies: debootstrap schroot
-
-schroot configuration `/etc/schroot/schroot.conf`
-
-```sh
-[bldr]
-description=bldr environment
-type=directory
-directory=/home/<username>/.bldr
-users=<username>
 ```
 
 ## Author

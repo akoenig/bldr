@@ -16,7 +16,7 @@
 #
 #
 
-BASE_BOX ?= http://de.archive.ubuntu.com/ubuntu 
+BASE_BOX ?= http://de.archive.ubuntu.com/ubuntu
 BASE_BOX_NAME ?= vivid
 BASE_BOX_ARCH ?= amd64
 BASE_BOX_VARIANT ?= buildd
