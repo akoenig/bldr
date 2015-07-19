@@ -34,6 +34,8 @@ if [ -z "$CMD" ]; then
     exit 1;
 fi
 
+echo "Starting the isolated box in which the build process will be executed ..."
+
 schroot -c bldr -u $USER -- $CMD
 
 exit 0
