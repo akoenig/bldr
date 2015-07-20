@@ -14,7 +14,7 @@ PKG=package.json
 CWD=$(readlink -f .)
 MANIFEST=$CWD/$PKG
 
-figlet 'bldr'
+echo "bldr"
 
 if [ ! -f $MANIFEST ]; then
     echo "Well, there is no '$PKG' in this project. Exiting. Bye bye.
