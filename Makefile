@@ -78,7 +78,7 @@ install_box-provisioning:
 	# (4/5)
 	#
 	# Download the box provisioning file from "$(shell echo ${BOX_SOURCE})"
-	# and Provisioning '$(shell echo ${BOX_NAME})' box.
+	# and provisioning '$(shell echo ${BOX_NAME})' box.
 	#
 	@wget -qO- "${BOX_SOURCE}" | schroot -c bldr -- 
 
