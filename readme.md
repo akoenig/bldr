@@ -25,6 +25,7 @@ sudo make install BOX_SOURCE=http://host.tld/path/to/a/provisioning/script
 
 ### Available configurations
 
+  * `ALLOWED_GROUPS`: The user groups allowed to use `bldr` (default: `www-data`)
   * `BASE_BOX`: URL of the base box (default: `http://de.archive.ubuntu.com/ubuntu`)
   * `BASE_BOX_NAME`: Product name of the base box (default: `vivid`)
   * `BASE_BOX_ARCH`: The machine's architecture (default: `amd64`)
